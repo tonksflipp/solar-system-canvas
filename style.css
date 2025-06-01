@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: dark grey;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,6 +11,6 @@ canvas {
   width: 900px;
   height: 900px;
   display: block;
-  background-color: black;
+  background-color: dark grey;
 }
 
