@@ -1,0 +1,58 @@
+const canvas = document.getElementById("universe");
+const ctx = canvas.getContext("2d");
+
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
+
+// Planets
+const planets = [
+  { distance: 60, radius: 6, color: "blue", angle: 0, speed: 0.02 },
+  { distance: 100, radius: 8, color: "green", angle: Math.PI / 4, speed: 0.01 },
+  { distance: 150, radius: 10, color: "red", angle: Math.PI / 2, speed: 0.005 },
+  { distance: 200, radius: 5, color: "orange", angle: Math.PI * 0.75, speed: 0.008 },
+  { distance: 250, radius: 7, color: "purple", angle: Math.PI, speed: 0.004 }
+];
+
+// Animation
+function animate() {
+  // 1. Clean canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 2. DDraw sun
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+  ctx.fillStyle = "yellow";
+  ctx.fill();
+
+    // Draw orbits
+  for (const planet of planets) {
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, planet.distance, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.2)"; // gris/blanco muy tenue
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+
+  // 3. Draw planets
+  for (const planet of planets) {
+    
+    planet.angle += planet.speed;
+
+    
+    const x = centerX + planet.distance * Math.cos(planet.angle);
+    const y = centerY + planet.distance * Math.sin(planet.angle);
+
+   
+    ctx.beginPath();
+    ctx.arc(x, y, planet.radius, 0, Math.PI * 2);
+    ctx.fillStyle = planet.color;
+    ctx.fill();
+  }
+
+  // 4. Repeat animation
+  requestAnimationFrame(animate);
+}
+
+// Initiate animation
+animate();
